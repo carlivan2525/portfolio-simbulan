@@ -58,7 +58,7 @@ const PROJECTS = [
     image: "MKFF.png",
     imageAlt: "CarGO Logistics Management System screenshot",
     demoUrl: null,
-    repoUrl: null,
+    repoUrl: "https://github.com/carlivan2525/Cargo_Logistics",
   },
   {
     title: "Real-Time Unit Traceability System (EdgeSensor Assembly)",
@@ -68,7 +68,7 @@ const PROJECTS = [
     image: "CARGO.png",
     imageAlt: "MKFF LASERTEKNIQUE Real-Time Unit Traceability System screenshot",
     demoUrl: null,
-    repoUrl: null,
+    repoUrl: "https://github.com/carlivan2525/mkffwebsystem",
   },
 ];
 
@@ -149,13 +149,6 @@ function renderProjects() {
       card.appendChild(period);
     }
 
-    // "View Details" button — opens modal
-    const detailsBtn = document.createElement("button");
-    detailsBtn.className = "btn btn-secondary btn-details";
-    detailsBtn.textContent = "View Details";
-    detailsBtn.addEventListener("click", () => openModal(project));
-    card.appendChild(detailsBtn);
-
     // Tech Stack
     const techWrapper = document.createElement("div");
     techWrapper.className = "project-tech";
@@ -167,9 +160,16 @@ function renderProjects() {
     });
     card.appendChild(techWrapper);
 
-    // Links (conditional)
+    // Links + View Details row
     const linksWrapper = document.createElement("div");
     linksWrapper.className = "project-links";
+
+    // "View Details" button inside links row
+    const detailsBtn = document.createElement("button");
+    detailsBtn.className = "btn btn-primary btn-details";
+    detailsBtn.textContent = "View Details";
+    detailsBtn.addEventListener("click", () => openModal(project));
+    linksWrapper.appendChild(detailsBtn);
 
     if (project.demoUrl) {
       const demoLink = document.createElement("a");
@@ -186,7 +186,7 @@ function renderProjects() {
       repoLink.href = project.repoUrl;
       repoLink.target = "_blank";
       repoLink.rel = "noopener noreferrer";
-      repoLink.className = "project-link";
+      repoLink.className = "btn btn-secondary btn-details";
       repoLink.innerHTML = '<i class="fab fa-github" aria-hidden="true"></i> GitHub';
       linksWrapper.appendChild(repoLink);
     }
@@ -218,6 +218,7 @@ function openModal(project) {
   });
 
   overlay.classList.add("active");
+  document.body.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`;
   document.body.style.overflow = "hidden";
 }
 
@@ -225,6 +226,7 @@ function closeModal() {
   const overlay = document.getElementById("modal-overlay");
   overlay.classList.remove("active");
   document.body.style.overflow = "";
+  document.body.style.paddingRight = "";
 }
 
 function initModal() {

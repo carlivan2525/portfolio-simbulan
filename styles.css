@@ -497,6 +497,14 @@ ul {
   display: flex;
   gap: 0.6rem;
   margin-top: 0.25rem;
+  align-items: stretch;
+}
+
+.project-links .btn,
+.project-links a.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .project-link {
@@ -558,10 +566,12 @@ ul {
    Project "View Details" button
    =========================== */
 .btn-details {
-  margin-top: 0.5rem;
-  align-self: flex-start;
   font-size: 0.88rem;
   padding: 0.5rem 1.25rem;
+  line-height: 1.5;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 /* ===========================
