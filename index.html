@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carl Ivan Ken Simbulan | Portfolio</title>
+    <link rel="icon" type="image/png" href="CIKS.PNG" />
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Devicons for skill icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    <!-- Font Awesome for contact/social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  </head>
+  <body>
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- ===== NAVIGATION ===== -->
+    <header id="navbar">
+      <div class="nav-container">
+        <a href="#hero" class="nav-logo">CIKS</a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav>
+          <ul class="nav-links" id="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+
+      <!-- ===== HERO SECTION ===== -->
+      <section id="hero">
+        <div class="hero-content">
+          <div class="hero-photo-wrapper">
+            <img src="me.png" alt="Carl Ivan Ken Simbulan" class="hero-photo" />
+          </div>
+          <div class="hero-text">
+            <p class="hero-greeting">Hello, I'm</p>
+            <h1 class="hero-name">Carl Ivan Ken Simbulan</h1>
+            <p class="hero-tagline">4th Year Information Technology Student | Aspiring Software Developer</p>
+            <div class="hero-cta">
+              <a href="#projects" class="btn btn-primary">View My Projects</a>
+              <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+          </div>
+        </div>
+        <div class="hero-bg-blob" aria-hidden="true"></div>
+      </section>
+
+      <!-- ===== SKILLS SECTION ===== -->
+      <section id="skills">
+        <div class="section-container">
+          <h2 class="section-title">Skills</h2>
+          <p class="section-subtitle">Technologies I work with</p>
+          <div id="skills-grid">
+            <!-- Populated by main.js -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== PROJECTS SECTION ===== -->
+      <section id="projects">
+        <div class="section-container">
+          <h2 class="section-title">Projects</h2>
+          <p class="section-subtitle">Things I've built</p>
+          <div id="projects-grid">
+            <!-- Populated by main.js -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== CERTIFICATIONS SECTION ===== -->
+      <section id="certifications">
+        <div class="section-container">
+          <h2 class="section-title">Certifications</h2>
+          <p class="section-subtitle">IT Specialist Certifications by Certiport</p>
+          <div class="certs-grid">
+            <div class="cert-card">
+              <div class="cert-img-wrapper">
+                <img src="networksecurity.png" alt="Network Security Certificate" class="cert-img" loading="lazy" />
+              </div>
+              <div class="cert-info">
+                <h3>Network Security</h3>
+                <p>IT Specialist — Certiport / CertNexus</p>
+                <span class="cert-date">May 23, 2026</span>
+              </div>
+            </div>
+            <div class="cert-card">
+              <div class="cert-img-wrapper">
+                <img src="databases.png" alt="Databases Certificate" class="cert-img" loading="lazy" />
+              </div>
+              <div class="cert-info">
+                <h3>Databases</h3>
+                <p>IT Specialist — Certiport / CertNexus</p>
+                <span class="cert-date">March 5, 2025</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== CONTACT SECTION ===== -->
+      <section id="contact">
+        <div class="section-container">
+          <h2 class="section-title">Contact</h2>
+          <p class="section-subtitle">Let's connect</p>
+          <div class="contact-wrapper">
+
+            <div class="contact-socials">
+              <a href="https://www.linkedin.com/in/carl-ivan-ken-simbulan-212439359/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <i class="fab fa-linkedin" aria-hidden="true"></i>
+              </a>
+              <a href="https://github.com/carlivan2525" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <i class="fab fa-github" aria-hidden="true"></i>
+              </a>
+              <a href="https://www.instagram.com/carl.xyz/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <i class="fab fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a href="https://www.facebook.com/officialcarlz" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <i class="fab fa-facebook" aria-hidden="true"></i>
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+
+
+    <!-- ===== MODAL ===== -->
+    <div id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal">
+        <button class="modal-close" id="modal-close" aria-label="Close modal">&times;</button>
+        <h3 id="modal-title"></h3>
+        <p id="modal-period" class="modal-period"></p>
+        <p id="modal-description" class="modal-description"></p>
+        <div id="modal-tech" class="project-tech"></div>
+      </div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
