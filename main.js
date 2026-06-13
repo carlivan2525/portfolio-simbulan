@@ -486,6 +486,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initHamburger();
   initScrollSpy();
   initModal();
+  initScrollAnimations();
+  initThemeToggle();
 });
 
 /* ===========================
@@ -493,4 +495,61 @@ document.addEventListener("DOMContentLoaded", () => {
    =========================== */
 if (typeof module !== "undefined") {
   module.exports = { validateForm, SKILLS, PROJECTS, PROFILE };
+}
+
+/* ===========================
+   Scroll Fade Animations
+   =========================== */
+function initScrollAnimations() {
+  // Elements to animate
+  const targets = document.querySelectorAll(
+    "#projects .project-card, #certifications .cert-card, #contact .contact-info-item, #contact .contact-socials, .section-title, .section-subtitle"
+  );
+
+  targets.forEach((el) => {
+    el.classList.add("scroll-hidden");
+  });
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove("scroll-hidden");
+          entry.target.classList.add("scroll-visible");
+        } else {
+          // fade out when scrolled away
+          entry.target.classList.remove("scroll-visible");
+          entry.target.classList.add("scroll-hidden");
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
+
+  targets.forEach((el) => observer.observe(el));
+}
+
+/* ===========================
+   Theme Toggle (Light / Dark)
+   =========================== */
+function initThemeToggle() {
+  const btnDesktop = document.getElementById("theme-toggle");
+  const btnMobile  = document.getElementById("theme-toggle-mobile");
+  const iconDesktop = document.getElementById("theme-icon");
+  const iconMobile  = document.getElementById("theme-icon-mobile");
+
+  function setTheme(isLight) {
+    document.body.classList.toggle("light-mode", isLight);
+    const iconClass = isLight ? "fa fa-moon" : "fa fa-sun";
+    if (iconDesktop) iconDesktop.className = iconClass;
+    if (iconMobile)  iconMobile.className  = iconClass;
+    localStorage.setItem("theme", isLight ? "light" : "dark");
+  }
+
+  // Restore saved preference
+  const saved = localStorage.getItem("theme");
+  if (saved === "light") setTheme(true);
+
+  if (btnDesktop) btnDesktop.addEventListener("click", () => setTheme(!document.body.classList.contains("light-mode")));
+  if (btnMobile)  btnMobile.addEventListener("click",  () => setTheme(!document.body.classList.contains("light-mode")));
 }

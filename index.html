@@ -17,12 +17,19 @@
     <!-- ===== NAVIGATION ===== -->
     <header id="navbar">
       <div class="nav-container">
-        <a href="#hero" class="nav-logo">CIKS</a>
-        <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+        <div class="nav-logo-group">
+          <a href="#hero" class="nav-logo">CIKS</a>
+        </div>
+        <div class="nav-right">
+          <button class="theme-toggle theme-toggle-mobile" id="theme-toggle-mobile" aria-label="Toggle light/dark mode">
+            <i class="fa fa-sun" id="theme-icon-mobile" aria-hidden="true"></i>
+          </button>
+          <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
         <nav>
           <ul class="nav-links" id="nav-links">
             <li><a href="#hero">Home</a></li>
@@ -33,6 +40,11 @@
         </nav>
       </div>
     </header>
+
+    <!-- Desktop-only: theme toggle fixed below navbar on left -->
+    <button class="theme-toggle theme-toggle-desktop" id="theme-toggle" aria-label="Toggle light/dark mode">
+      <i class="fa fa-sun" id="theme-icon" aria-hidden="true"></i>
+    </button>
 
     <main>
 
