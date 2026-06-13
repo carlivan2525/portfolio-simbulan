@@ -26,7 +26,6 @@
         <nav>
           <ul class="nav-links" id="nav-links">
             <li><a href="#hero">Home</a></li>
-            <li><a href="#skills">Skills</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#certifications">Certifications</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -44,27 +43,22 @@
             <img src="me.png" alt="Carl Ivan Ken Simbulan" class="hero-photo" />
           </div>
           <div class="hero-text">
-            <p class="hero-greeting">Hello, I'm</p>
+            <p class="hero-greeting"><span id="typewriter"></span></p>
             <h1 class="hero-name">Carl Ivan Ken Simbulan</h1>
-            <p class="hero-tagline">4th Year Information Technology Student | Aspiring Software Developer</p>
+            <p class="hero-tagline">I am a 4th-year Information Technology student and an aspiring Software Engineer. I focus on building clean, functional, and user-friendly digital solutions.
+
+With a solid foundation in both frontend and backend development, I enjoy solving complex logic problems and turning ideas into working applications. I am eager to bring my technical skills, adaptability, and passion for learning to a dynamic development team.</p>
             <div class="hero-cta">
               <a href="#projects" class="btn btn-primary">View My Projects</a>
               <a href="#contact" class="btn btn-secondary">Get In Touch</a>
             </div>
+            <div class="skills-ticker-wrapper" aria-label="Skills">
+              <p class="ticker-label">Core Skills</p>
+              <div class="skills-ticker" id="skills-ticker"></div>
+            </div>
           </div>
         </div>
         <div class="hero-bg-blob" aria-hidden="true"></div>
-      </section>
-
-      <!-- ===== SKILLS SECTION ===== -->
-      <section id="skills">
-        <div class="section-container">
-          <h2 class="section-title">Skills</h2>
-          <p class="section-subtitle">Technologies I work with</p>
-          <div id="skills-grid">
-            <!-- Populated by main.js -->
-          </div>
-        </div>
       </section>
 
       <!-- ===== PROJECTS SECTION ===== -->
@@ -114,7 +108,16 @@
           <h2 class="section-title">Contact</h2>
           <p class="section-subtitle">Let's connect</p>
           <div class="contact-wrapper">
-
+            <div class="contact-info">
+              <a href="mailto:carlivan252003@gmail.com" class="contact-info-item">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>carlivan252003@gmail.com</span>
+              </a>
+              <a href="tel:+639690583188" class="contact-info-item">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>+63 969 058 3188</span>
+              </a>
+            </div>
             <div class="contact-socials">
               <a href="https://www.linkedin.com/in/carl-ivan-ken-simbulan-212439359/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                 <i class="fab fa-linkedin" aria-hidden="true"></i>

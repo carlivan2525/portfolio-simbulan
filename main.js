@@ -25,6 +25,7 @@ const SKILLS = [
     items: [
       { name: "React",      icon: "devicon-react-original colored" },
       { name: "Vite",       icon: "devicon-vitejs-plain colored" },
+      { name: "Laravel",    icon: "devicon-laravel-plain colored" },
       { name: "Node.js",    icon: "devicon-nodejs-plain colored" },
       { name: "Express",    icon: "devicon-express-original" },
       { name: "Bootstrap",  icon: "devicon-bootstrap-plain colored" },
@@ -54,7 +55,7 @@ const PROJECTS = [
     title: "CarGO — EDI-Enabled Logistics Management System",
     period: "May 2026 – May 2026",
     description: "CarGO is a full-stack Logistics Management System built to simulate real-world supply chain workflows using the ANSI X12 EDI standard. It automates end-to-end B2B data exchanges, freight transactions, and route tracking. The system features an automated 8-stage transaction pipeline that parses and processes inbound/outbound EDI documents (204, 990, 214, 210, 820, 997) for seamless load tendering and billing. For routing, I integrated Leaflet and OpenStreetMap with an interactive freight rate calculator covering over 3,785 Philippine cities, factoring in vehicle-based pricing and distance multipliers. It also includes a real-time financial ledger with secure token-based PDF invoice generation, automated digital payout workflows, and a live dashboard for active shipment monitoring.",
-    techStack: ["React", "Vite", "Tailwind CSS", "Node.js", "Express", "MongoDB", "Leaflet", "JWT", "PDFKit"],
+    techStack: ["React", "Vite", "Tailwind CSS", "Node.js", "Express", "MongoDB"],
     image: "MKFF.png",
     imageAlt: "CarGO Logistics Management System screenshot",
     demoUrl: null,
@@ -73,43 +74,93 @@ const PROJECTS = [
 ];
 
 /* ===========================
-   Render Skills
+   Typewriter Effect
    =========================== */
-function renderSkills() {
-  const grid = document.getElementById("skills-grid");
-  if (!grid) return;
+function initTypewriter() {
+  const el = document.getElementById("typewriter");
+  if (!el) return;
+  const text = "Hello, I'm";
 
-  SKILLS.forEach((category) => {
-    const section = document.createElement("div");
-    section.className = "skill-category";
+  function typeOut(cb) {
+    let i = 0;
+    function step() {
+      el.textContent = text.slice(0, i);
+      i++;
+      if (i <= text.length) setTimeout(step, 80);
+      else cb && setTimeout(cb, 5000);
+    }
+    step();
+  }
 
-    const heading = document.createElement("h3");
-    heading.textContent = category.category;
-    section.appendChild(heading);
+  function eraseOut(cb) {
+    let i = el.textContent.length;
+    function step() {
+      el.textContent = text.slice(0, i);
+      i--;
+      if (i >= 0) setTimeout(step, 40);
+      else cb && setTimeout(cb, 300);
+    }
+    step();
+  }
 
-    const badgesWrapper = document.createElement("div");
-    badgesWrapper.className = "skill-badges";
+  function loop() {
+    typeOut(() => eraseOut(() => loop()));
+  }
 
-    category.items.forEach((skill) => {
-      const badge = document.createElement("span");
-      badge.className = "skill-badge";
+  loop();
+}
 
-      const icon = document.createElement("i");
-      // fa-* icons need the "fa" base class already included in the icon string
-      icon.className = skill.icon;
-      icon.setAttribute("aria-hidden", "true");
 
-      const label = document.createElement("span");
-      label.textContent = skill.name;
+function renderSkillsTicker() {
+  const ticker = document.getElementById("skills-ticker");
+  if (!ticker) return;
 
-      badge.appendChild(icon);
-      badge.appendChild(label);
-      badgesWrapper.appendChild(badge);
-    });
+  const allSkills = SKILLS.flatMap(cat => cat.items);
 
-    section.appendChild(badgesWrapper);
-    grid.appendChild(section);
+  // Desktop: double list for seamless loop
+  [...allSkills, ...allSkills].forEach((skill) => {
+    const badge = document.createElement("span");
+    badge.className = "ticker-badge";
+
+    const icon = document.createElement("i");
+    icon.className = skill.icon;
+    icon.setAttribute("aria-hidden", "true");
+
+    const label = document.createElement("span");
+    label.textContent = skill.name;
+
+    badge.appendChild(icon);
+    badge.appendChild(label);
+    ticker.appendChild(badge);
   });
+
+  // Mobile: show one badge at a time with pop animation
+  function initMobileCycle() {
+    if (window.innerWidth > 768) return;
+
+    const badges = ticker.querySelectorAll(".ticker-badge");
+    // Only use first half (non-duplicate)
+    const mobileBadges = Array.from(badges).slice(0, allSkills.length);
+    let current = 0;
+
+    function showNext() {
+      mobileBadges.forEach(b => {
+        b.classList.remove("active");
+        b.style.animation = "none";
+      });
+      const current_badge = mobileBadges[current];
+      current_badge.classList.add("active");
+      void current_badge.offsetWidth;
+      current_badge.style.animation = "badge-slide 0.4s ease";
+      current = (current + 1) % mobileBadges.length;
+    }
+
+    showNext();
+    setInterval(showNext, 1800);
+  }
+
+  initMobileCycle();
+  window.addEventListener("resize", initMobileCycle);
 }
 
 /* ===========================
@@ -397,20 +448,30 @@ function initScrollSpy() {
   const sections = document.querySelectorAll("main section[id]");
   const navLinks = document.querySelectorAll(".nav-links a");
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          navLinks.forEach((link) => {
-            link.classList.toggle("active", link.getAttribute("href") === `#${entry.target.id}`);
-          });
+  function setActive() {
+    const scrollBottom = window.scrollY + window.innerHeight;
+    const docHeight = document.documentElement.scrollHeight;
+    let current = "";
+
+    // If near bottom of page, force last section active
+    if (scrollBottom >= docHeight - 10) {
+      current = sections[sections.length - 1].id;
+    } else {
+      sections.forEach((section) => {
+        const top = section.getBoundingClientRect().top;
+        if (top <= 80) {
+          current = section.id;
         }
       });
-    },
-    { rootMargin: `-${68}px 0px -30% 0px`, threshold: 0 }
-  );
+    }
 
-  sections.forEach((section) => observer.observe(section));
+    navLinks.forEach((link) => {
+      link.classList.toggle("active", link.getAttribute("href") === `#${current}`);
+    });
+  }
+
+  window.addEventListener("scroll", setActive, { passive: true });
+  setActive();
 }
 
 /* ===========================
@@ -418,7 +479,8 @@ function initScrollSpy() {
    =========================== */
 document.addEventListener("DOMContentLoaded", () => {
   initLiveBg();
-  renderSkills();
+  initTypewriter();
+  renderSkillsTicker();
   renderProjects();
   initContactForm();
   initHamburger();
